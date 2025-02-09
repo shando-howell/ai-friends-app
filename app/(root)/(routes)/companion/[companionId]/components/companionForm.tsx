@@ -29,6 +29,7 @@ import { Button } from '@/components/ui/button';
 import { Wand2 } from 'lucide-react';
 import axios from "axios";
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 
 const PREAMBLE = `You are a fictional character whose name is Elon. You are a visionary
 entrepreneur and inventor. You have a passion for space exploration, electric vehicles,
@@ -86,6 +87,7 @@ export const CompanionForm = ({
     categories,
     initialData
 }: CompanionFormProps) => {
+    const router = useRouter();
     const { toast } = useToast();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -111,10 +113,18 @@ export const CompanionForm = ({
                 // Create companion functionality
                 await axios.post("/api/companion", values);
             }
+
+            toast({
+                description: "Success."
+            })
+
+            router.refresh();
+            router.push("/");
         } catch (error) {
             toast({
-                variant: "destructive"
-            })
+                variant: "destructive",
+                description: "Something went wrong",
+            });
         }
     }
 
