@@ -3,6 +3,7 @@ import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from '@/components/theme-provider'
 import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
   title: 'AI Friends',
@@ -24,6 +25,7 @@ export default function RootLayout({
             enableSystem
           >
             {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
